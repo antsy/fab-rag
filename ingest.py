@@ -88,8 +88,8 @@ all_texts = [raw_text] + card_texts
 print("📚 Creating text chunks...")
 # Split text into documents with smaller chunks and more overlap
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=200,
-    chunk_overlap=50,
+    chunk_size=1500,
+    chunk_overlap=300,
     length_function=len,
     separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""]
 )
@@ -103,7 +103,7 @@ embedding = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2",  # This model has 768 dimensions
     model_kwargs={'device': 'cpu'},
     encode_kwargs={'normalize_embeddings': True},
-    cache_folder="model_cache"  # Add local caching for the model
+    cache_folder="/root/.cache/huggingface"  # Use the Docker container's cache directory
 )
 
 # Process documents in batches

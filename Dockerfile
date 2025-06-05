@@ -18,8 +18,9 @@ RUN pip install --no-cache-dir streamlit tqdm
 # Install ML and embedding packages
 RUN pip install --no-cache-dir sentence-transformers torch
 
-# Fix permissions for model cache directory
-RUN mkdir -p model_cache && chmod -R 755 model_cache
+# Create model cache directory with proper permissions
+RUN mkdir -p /root/.cache/huggingface && \
+    chmod -R 755 /root/.cache/huggingface
 
 COPY . .
 RUN chmod +x start.sh
